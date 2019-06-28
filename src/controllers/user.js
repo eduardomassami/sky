@@ -35,10 +35,10 @@ const signin = async(req, res) => {
           { nome: user.nome },
           process.env.TOKEN_SECRET,
           { expiresIn: 1800 });
-        await User.update({ _id: user._id }, {$set: { token: token }});
+        await User.update({ _id: user._id }, {$set: { token }});
 
         // achou e autenticou
-        res.json(user);
+        res.json(await User.findOne({ email }));
       } else {
         // senha não bateu
         return res.status(401).json(
@@ -62,8 +62,10 @@ const user = async(req, res) => {
     if (!usr) return res.status(404).json({ messagem: 'Não autorizado' });
 
     // token errado
-    if (usr.token !== req.token)
+    if (usr.token !== req.token)  {
       return res.status(404).json({ messagem: 'Não autorizado' });
+    }
+
     res.send(usr);
   } catch (err) {
     res.status(500).json({ mensagem: err.message });
