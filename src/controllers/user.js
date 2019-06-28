@@ -1,8 +1,7 @@
+require('dotenv/config');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-const config = require('../../config');
 
 const signup = async (req, res) => {
     try {
@@ -30,7 +29,7 @@ const signin = async (req, res) => {
             const match = await bcrypt.compare(senha, user.senha)
             if (match) {
                 // não estava especificado, mas creio que esteja implícito
-                const token = jwt.sign({ nome: user.nome }, config.tokenSecret, { expiresIn: 1800 });
+                const token = jwt.sign({ nome: user.nome }, process.env.TOKEN_SECRET, { expiresIn: 1800 });
                 await User.update({ _id: user._id },{$set : { token: token }});
 
                 // achou e autenticou
@@ -77,7 +76,7 @@ const verifyToken = async (req, res, next) => {
         
         try {
             // verifica o tempo do token
-            await jwt.verify(token, config.tokenSecret);
+            await jwt.verify(token, process.en.TOKEN_SECRET);
             req.token = token;
             next();
         }

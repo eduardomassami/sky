@@ -1,13 +1,13 @@
+require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const config = require('../config')
 const user = require('./routes/User');
 
 // Connect to MongoDB with Mongoose.
 mongoose
-    .connect(config.database)
+    .connect(process.env.MONGO_DATABASE)
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.log(err));
 

@@ -1,3 +1,4 @@
+require('dotenv/config');
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
@@ -38,7 +39,7 @@ UserSchema.pre('save', async function (next) {
         this.ultimo_login = this.updatedAt;
 
         // gerando o token e persistindo
-        this.token = jwt.sign({ nome: this.nome }, config.tokenSecret, { expiresIn: 1800 });
+        this.token = jwt.sign({ nome: this.nome }, process.env.TOKEN_SECRET, { expiresIn: 1800 });
         
         next();
     }
