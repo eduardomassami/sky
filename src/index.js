@@ -26,4 +26,4 @@ app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     res.status(404).json({ mensagem: "Endpoint inválido" });
-});
+}); 
