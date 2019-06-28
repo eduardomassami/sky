@@ -13,7 +13,8 @@ mongoose
 
 const app = express();
 
-app.listen({ port: 3000 }, () => console.log(`Server listening port 3000.`));
+const serverPort = process.env.PORT || 3000
+app.listen({ port: serverPort }, () => console.log(`Server listening port ${serverPort}.`));
 
 app.use(bodyParser());
 
