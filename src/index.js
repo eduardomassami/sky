@@ -7,9 +7,11 @@ const user = require('./routes/User');
 console.log(process.env)
 // Connect to MongoDB with Mongoose.
 mongoose
-    .connect(process.env.MONGO_DATABASE)
-    .then(() => console.log("MongoDB connected"))
-    .catch(err => console.log(err));
+.connect(process.env.MONGO_DATABASE, { useNewUrlParser: true })
+.then(() => console.log("MongoDB connected"))
+.catch(err => console.log(err));
+
+mongoose.set('useCreateIndex', true);
 
 const app = express();
 
