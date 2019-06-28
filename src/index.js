@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const user = require('./routes/User');
-
+console.log(process.env)
 // Connect to MongoDB with Mongoose.
 mongoose
     .connect(process.env.MONGO_DATABASE)
