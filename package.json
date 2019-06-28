@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "eslint --ignore-path .gitignore .",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +22,11 @@
     "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "chai": "^4.2.0",
     "eslint": "^6.0.1",
+    "eslint-config-strongloop": "^2.1.0",
+    "mocha": "^6.1.4",
     "nodemon": "^1.19.1"
   }
 }
