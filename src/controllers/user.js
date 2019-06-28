@@ -81,7 +81,7 @@ const verifyToken = async(req, res, next) => {
 
     try {
       // verifica o tempo do token
-      await jwt.verify(token, process.en.TOKEN_SECRET);
+      await jwt.verify(token, process.env.TOKEN_SECRET);
       req.token = token;
       next();
     } catch (err) {

@@ -24,11 +24,11 @@ const UserSchema = new Schema({
 
 UserSchema.plugin(uniqueValidator, { message: 'E-mail já existente' });
 
-UserSchema.pre('save', async(next) => {
+UserSchema.pre('save', function (next) {
   try {
     // hash na senha
-    const salt = await bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS, 10));
-    const password = await bcrypt.hash(this.senha, salt);
+    const salt = bcrypt.genSaltSync(parseInt(process.env.SALT_ROUNDS, 10));
+    const password = bcrypt.hashSync(this.senha, salt);
     this.senha = password;
 
     // atualizando datas
