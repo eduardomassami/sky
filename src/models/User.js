@@ -4,8 +4,6 @@ const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const config = require('../../config');
-
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -29,7 +27,7 @@ UserSchema.plugin(uniqueValidator, { message: `E-mail já existente` } );
 UserSchema.pre('save', async function (next) {
     try {
         // hash na senha
-        const salt = await bcrypt.genSalt(config.saltRounds);
+        const salt = await bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS));
         const password = await bcrypt.hash(this.senha, salt);
         this.senha = password;
 
